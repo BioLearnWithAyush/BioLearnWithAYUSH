@@ -1,17 +1,15 @@
-     <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>BioLearn with Ayush</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-
   <style>
     :root {
       --main-bg: linear-gradient(to right, #f3e5f5, #e1f5fe);
       --text-color: #222;
       --link-color: #4a148c;
-      --card-bg: white;
       --hover-shadow: rgba(76, 0, 130, 0.3);
     }
 
@@ -19,7 +17,6 @@
       --main-bg: #121212;
       --text-color: #f5f5f5;
       --link-color: #bb86fc;
-      --card-bg: #2a2a40;
       --hover-shadow: rgba(0, 255, 255, 0.2);
     }
 
@@ -35,6 +32,30 @@
       color: var(--text-color);
       padding: 20px;
       transition: all 0.4s ease;
+    }
+
+    #welcome-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: linear-gradient(135deg, #8e24aa, #ce93d8);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      font-weight: bold;
+      z-index: 9999;
+      animation: fadeOut 2.5s ease 2s forwards;
+    }
+
+    @keyframes fadeOut {
+      to {
+        opacity: 0;
+        visibility: hidden;
+      }
     }
 
     header {
@@ -93,17 +114,21 @@
       padding: 20px;
       width: 250px;
       border-radius: 12px;
-      background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
       text-align: center;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.5s ease;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeSlideIn 0.8s ease forwards;
     }
 
-    .card:nth-child(2) { background: linear-gradient(135deg, #a1c4fd, #c2e9fb); }
-    .card:nth-child(3) { background: linear-gradient(135deg, #d4fc79, #96e6a1); }
-    .card:nth-child(4) { background: linear-gradient(135deg, #fbc2eb, #a6c1ee); }
-    .card:nth-child(5) { background: linear-gradient(135deg, #fddb92, #d1fdff); }
-    .card:nth-child(6) { background: linear-gradient(135deg, #f6d365, #fda085); }
+    .card:nth-child(1) { animation-delay: 0.2s; }
+    .card:nth-child(2) { animation-delay: 0.4s; background: linear-gradient(135deg, #a18cd1, #fbc2eb); }
+    .card:nth-child(3) { animation-delay: 0.6s; background: linear-gradient(135deg, #fddb92, #d1fdff); }
+    .card:nth-child(4) { animation-delay: 0.8s; background: linear-gradient(135deg, #84fab0, #8fd3f4); }
+    .card:nth-child(5) { animation-delay: 1s; background: linear-gradient(135deg, #fccb90, #d57eeb); }
+    .card:nth-child(6) { animation-delay: 1.2s; background: linear-gradient(135deg, #ffecd2, #fcb69f); }
 
     .card a {
       text-decoration: none;
@@ -115,6 +140,14 @@
     .card:hover {
       transform: translateY(-6px);
       box-shadow: 0 8px 20px var(--hover-shadow);
+      background: linear-gradient(135deg, #fff1eb, #ace0f9);
+    }
+
+    @keyframes fadeSlideIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     footer {
@@ -135,6 +168,8 @@
   </style>
 </head>
 <body>
+  <div id="welcome-screen">Welcome to BioLearn with Ayush 🎉</div>
+
   <header>
     <h1>BioLearn with Ayush</h1>
     <p>Explore Biology the Smart Way ✨</p>
@@ -168,9 +203,12 @@
     const toggleBtn = document.getElementById("toggle-mode");
     toggleBtn.addEventListener("click", () => {
       document.body.classList.toggle("dark");
-      toggleBtn.textContent = document.body.classList.contains("dark") ? "Turn off Dark Mode" : "Turn on Dark Mode";
+      toggleBtn.textContent = document.body.classList.contains("dark")
+        ? "Turn off Dark Mode"
+        : "Turn on Dark Mode";
     });
   </script>
 </body>
 </html>
+
 
