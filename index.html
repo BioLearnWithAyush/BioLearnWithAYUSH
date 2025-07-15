@@ -49,6 +49,14 @@
       font-weight: bold;
       z-index: 9999;
       animation: fadeOut 2.5s ease 2s forwards;
+      visibility: hidden;
+      opacity: 0;
+    }
+
+    .show-welcome {
+      visibility: visible;
+      opacity: 1;
+      animation: fadeOut 2.5s ease 2s forwards;
     }
 
     @keyframes fadeOut {
@@ -114,7 +122,7 @@
       padding: 20px;
       width: 250px;
       border-radius: 12px;
-      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      background: linear-gradient(135deg, #89f7fe, #66a6ff);
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
       text-align: center;
       transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.5s ease;
@@ -123,18 +131,18 @@
       animation: fadeSlideIn 0.8s ease forwards;
     }
 
-    .card:nth-child(1) { animation-delay: 0.2s; }
-    .card:nth-child(2) { animation-delay: 0.4s; background: linear-gradient(135deg, #a18cd1, #fbc2eb); }
-    .card:nth-child(3) { animation-delay: 0.6s; background: linear-gradient(135deg, #fddb92, #d1fdff); }
-    .card:nth-child(4) { animation-delay: 0.8s; background: linear-gradient(135deg, #84fab0, #8fd3f4); }
-    .card:nth-child(5) { animation-delay: 1s; background: linear-gradient(135deg, #fccb90, #d57eeb); }
-    .card:nth-child(6) { animation-delay: 1.2s; background: linear-gradient(135deg, #ffecd2, #fcb69f); }
+    .card:nth-child(2) { animation-delay: 0.2s; background: linear-gradient(135deg, #ff758c, #ff7eb3); }
+    .card:nth-child(3) { animation-delay: 0.4s; background: linear-gradient(135deg, #c1dfc4, #deecdd); }
+    .card:nth-child(4) { animation-delay: 0.6s; background: linear-gradient(135deg, #f6d365, #fda085); }
+    .card:nth-child(5) { animation-delay: 0.8s; background: linear-gradient(135deg, #a1c4fd, #c2e9fb); }
+    .card:nth-child(6) { animation-delay: 1s; background: linear-gradient(135deg, #fbc2eb, #a6c1ee); }
 
     .card a {
       text-decoration: none;
       color: #4a148c;
       font-weight: 600;
       font-size: 1.1rem;
+      display: block;
     }
 
     .card:hover {
@@ -168,6 +176,7 @@
   </style>
 </head>
 <body>
+  <audio id="navSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_dfd3db6acb.mp3?filename=click-beep-131417.mp3"></audio>
   <div id="welcome-screen">Welcome to BioLearn with Ayush 🎉</div>
 
   <header>
@@ -187,12 +196,12 @@
   </nav>
 
   <div class="container">
-    <div class="card"><a href="cell.html">🔬 Cell</a></div>
-    <div class="card"><a href="photosynthesis.html">🌿 Photosynthesis</a></div>
-    <div class="card"><a href="genetics.html">🧬 Genetics</a></div>
-    <div class="card"><a href="facts.html">📚 Facts</a></div>
-    <div class="card"><a href="quiz.html">📝 Quiz</a></div>
-    <div class="card"><a href="contact.html">📞 Contact</a></div>
+    <div class="card nav-link" data-href="cell.html">🔬 Cell</div>
+    <div class="card nav-link" data-href="photosynthesis.html">🌿 Photosynthesis</div>
+    <div class="card nav-link" data-href="genetics.html">🧬 Genetics</div>
+    <div class="card nav-link" data-href="facts.html">📚 Facts</div>
+    <div class="card nav-link" data-href="quiz.html">📝 Quiz</div>
+    <div class="card nav-link" data-href="contact.html">📞 Contact</div>
   </div>
 
   <footer>
@@ -201,6 +210,24 @@
 
   <script>
     const toggleBtn = document.getElementById("toggle-mode");
+    const navSound = document.getElementById("navSound");
+    const welcomeScreen = document.getElementById("welcome-screen");
+
+    if (!sessionStorage.getItem("welcomeShown")) {
+      welcomeScreen.classList.add("show-welcome");
+      sessionStorage.setItem("welcomeShown", "true");
+    }
+
+    document.querySelectorAll(".nav-link").forEach(card => {
+      card.addEventListener("click", function () {
+        const url = this.getAttribute("data-href");
+        navSound.play();
+        setTimeout(() => {
+          window.location.href = url;
+        }, 200);
+      });
+    });
+
     toggleBtn.addEventListener("click", () => {
       document.body.classList.toggle("dark");
       toggleBtn.textContent = document.body.classList.contains("dark")
@@ -210,5 +237,3 @@
   </script>
 </body>
 </html>
-
-
